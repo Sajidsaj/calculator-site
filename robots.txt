@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://caculator.free.nf/sitemap.xml
+Sitemap: https://sajidsaj.github.io/calculator-site/sitemap.xml
