@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Percentage Calculator — Multi Calculator Hub</title>
+  <meta name="description" content="Easily calculate percentages like 'X% of Y', 'what % is A of B', and percentage increase/decrease." />
+  <meta name="keywords" content="percentage calculator, online percentage tool, increase decrease calculator" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --primary-color: #fde047;
+      --background-start: #4c1d95;
+      --background-mid: #6d28d9;
+      --background-end: #db2777;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--background-start), var(--background-mid), var(--background-end));
+      min-height: 100vh;
+      color: white;
+    }
+    .card-glass { 
+      background: rgba(255, 255, 255, 0.08); 
+      backdrop-filter: blur(10px); 
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .input-field {
+      padding: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 0.75rem;
+      background-color: rgba(0, 0, 0, 0.3);
+      color: white;
+      transition: all 0.3s ease;
+    }
+    .input-field:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    .btn-calculate {
+      padding: 1rem 2rem;
+      background-color: var(--primary-color);
+      color: #1f2937;
+      font-weight: 600;
+      border-radius: 0.75rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .btn-calculate:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    }
+    .result-display {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #a7f3d0; /* Soft green */
+    }
+    .error-message {
+      color: #fca5a5; /* Soft red */
+    }
+  </style>
+</head>
+<body class="p-4 md:p-8 flex flex-col items-center">
+
+  <!-- Header -->
+  <header class="w-full max-w-4xl p-4 md:p-6 rounded-2xl mb-8 card-glass">
+    <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+      <h1 class="text-3xl font-bold text-yellow-300 mb-2 md:mb-0">📊 Percentage Calculator</h1>
+      <nav class="text-sm space-x-4">
+        <a href="index.html" class="hover:text-yellow-300 transition-colors">Home</a>
+        <a href="age.html" class="hover:text-yellow-300 transition-colors">Age</a>
+        <a href="currency.html" class="hover:text-yellow-300 transition-colors">Currency</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="w-full max-w-4xl p-6 md:p-10 card-glass rounded-2xl shadow-2xl space-y-8 md:space-y-12">
+    <h2 class="text-3xl md:text-4xl text-center text-yellow-300 font-bold mb-6">Easily calculate percentages</h2>
+
+    <!-- 1. Find X% of Y -->
+    <section class="space-y-4">
+      <h3 class="text-xl font-semibold">1. Find X% of a number</h3>
+      <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
+        <div class="flex items-center space-x-2 w-full md:w-auto">
+          <input id="p1" type="number" class="input-field w-full md:w-32 text-center" placeholder="X" aria-label="Percentage value">
+          <span class="text-2xl font-bold">%</span>
+        </div>
+        <span class="text-2xl">of</span>
+        <input id="n1" type="number" class="input-field w-full md:w-48 text-center" placeholder="Number" aria-label="Total number">
+        <button onclick="calc1()" class="btn-calculate w-full md:w-auto mt-4 md:mt-0" aria-label="Calculate">Calculate</button>
+      </div>
+      <div id="r1" class="result-display text-center hidden"></div>
+    </section>
+
+    <!-- 2. What % is A of B -->
+    <section class="space-y-4">
+      <h3 class="text-xl font-semibold">2. Find what % one number is of another</h3>
+      <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
+        <input id="n2" type="number" class="input-field w-full md:w-32 text-center" placeholder="A" aria-label="First number">
+        <span class="text-2xl">is what % of</span>
+        <input id="n3" type="number" class="input-field w-full md:w-48 text-center" placeholder="B" aria-label="Second number">
+        <button onclick="calc2()" class="btn-calculate w-full md:w-auto mt-4 md:mt-0" aria-label="Calculate">Calculate</button>
+      </div>
+      <div id="r2" class="result-display text-center hidden"></div>
+    </section>
+
+    <!-- 3. Percentage increase/decrease -->
+    <section class="space-y-4">
+      <h3 class="text-xl font-semibold">3. Find % increase or decrease</h3>
+      <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
+        <span class="text-2xl">From</span>
+        <input id="n4" type="number" class="input-field w-full md:w-32 text-center" placeholder="Old Value" aria-label="Old value">
+        <span class="text-2xl">to</span>
+        <input id="n5" type="number" class="input-field w-full md:w-32 text-center" placeholder="New Value" aria-label="New value">
+        <button onclick="calc3()" class="btn-calculate w-full md:w-auto mt-4 md:mt-0" aria-label="Calculate">Calculate</button>
+      </div>
+      <div id="r3" class="result-display text-center hidden"></div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full max-w-4xl mt-8 text-center text-sm text-white/60">© 2025 Multi-Calculator Hub</footer>
+
+  <!-- JS -->
+  <script>
+    function displayResult(elementId, message, isError = false) {
+      const el = document.getElementById(elementId);
+      el.innerText = message;
+      el.classList.remove('hidden');
+      if (isError) {
+        el.classList.add('error-message');
+        el.classList.remove('text-green-300');
+      } else {
+        el.classList.remove('error-message');
+        el.classList.add('text-green-300');
+      }
+    }
+
+    function calc1() {
+      const p = parseFloat(document.getElementById("p1").value);
+      const n = parseFloat(document.getElementById("n1").value);
+      if (isNaN(p) || isNaN(n)) {
+        displayResult("r1", "Please enter valid numbers.", true);
+        return;
+      }
+      const result = (n * p / 100).toFixed(2);
+      displayResult("r1", `${p}% of ${n} = ${result}`);
+    }
+
+    function calc2() {
+      const a = parseFloat(document.getElementById("n2").value);
+      const b = parseFloat(document.getElementById("n3").value);
+      if (isNaN(a) || isNaN(b) || b === 0) {
+        displayResult("r2", "Please enter valid numbers.", true);
+        return;
+      }
+      const result = ((a / b) * 100).toFixed(2);
+      displayResult("r2", `${a} is ${result}% of ${b}.`);
+    }
+
+    function calc3() {
+      const oldV = parseFloat(document.getElementById("n4").value);
+      const newV = parseFloat(document.getElementById("n5").value);
+      if (isNaN(oldV) || isNaN(newV) || oldV === 0) {
+        displayResult("r3", "Please enter valid numbers.", true);
+        return;
+      }
+      const diff = ((newV - oldV) / oldV) * 100;
+      const status = diff >= 0 ? "increase" : "decrease";
+      displayResult("r3", `${Math.abs(diff).toFixed(2)}% ${status}.`);
+    }
+
+    // Add event listeners for auto-calculation
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+      input.addEventListener('input', (event) => {
+        const id = event.target.id;
+        if (id.startsWith('p1') || id.startsWith('n1')) calc1();
+        if (id.startsWith('n2') || id.startsWith('n3')) calc2();
+        if (id.startsWith('n4') || id.startsWith('n5')) calc3();
+      });
+    });
+
+  </script>
+</body>
+</html>

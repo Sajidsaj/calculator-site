@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GPA Calculator — Multi Calculator Hub</title>
+  <meta name="description" content="Simple and responsive GPA calculator to calculate your grade point average easily and accurately." />
+  <meta name="keywords" content="gpa calculator, cgpa calculator, grade point average, student calculator, responsive gpa" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .glass { background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(8px); }
+    .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    @media (max-width: 640px) {
+      table, thead, tbody, th, td, tr { display: block; }
+      thead tr { position: absolute; top: -9999px; left: -9999px; }
+      tr { border: 1px solid rgba(255, 255, 255, 0.2); margin-bottom: 0.5rem; border-radius: 0.5rem; }
+      td { border: none; border-bottom: 1px solid rgba(255, 255, 255, 0.1); position: relative; padding-left: 50%; text-align: right; }
+      td:before { position: absolute; top: 0; left: 6px; width: 45%; padding-right: 10px; white-space: nowrap; text-align: left; font-weight: 600; }
+      td:nth-of-type(1):before { content: "Course"; }
+      td:nth-of-type(2):before { content: "Credit Hours"; }
+      td:nth-of-type(3):before { content: "Grade (A-F)"; }
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-800 text-white flex flex-col">
+
+  <!-- Header -->
+  <header class="p-4 sticky top-0 glass z-10">
+    <div class="max-w-3xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-yellow-300">🎓 GPA Calculator</h1>
+      <nav aria-label="Main navigation" class="text-sm hidden sm:block">
+        <a href="index.html" class="mr-4 hover:text-yellow-300 transition-colors duration-300">Home</a>
+        <a href="#about" class="mr-4 hover:text-yellow-300 transition-colors duration-300">About</a>
+        <a href="#contact" class="hover:text-yellow-300 transition-colors duration-300">Contact</a>
+      </nav>
+      <button id="mobile-menu-btn" class="sm:hidden text-yellow-300 focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu (Hidden by default) -->
+  <nav id="mobile-menu" class="sm:hidden bg-gray-900 bg-opacity-90 w-full absolute top-16 left-0 text-center py-4 hidden">
+    <a href="index.html" class="block py-2 text-white hover:text-yellow-300">Home</a>
+    <a href="#about" class="block py-2 text-white hover:text-yellow-300">About</a>
+    <a href="#contact" class="block py-2 text-white hover:text-yellow-300">Contact</a>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-3xl mx-auto p-6 flex-grow">
+    <section class="glass rounded-2xl p-6 shadow-lg space-y-6">
+      <h2 class="text-3xl text-center text-yellow-300 font-semibold mb-4">Calculate your GPA</h2>
+      <p class="text-center text-gray-300 mb-6">Add your courses to see your grade point average instantly.</p>
+
+      <div class="table-container">
+        <table class="w-full text-center bg-gray-900 rounded-lg">
+          <caption class="sr-only">Course Grades and Credit Hours</caption>
+          <thead class="bg-white/10">
+            <tr>
+              <th scope="col" class="p-2">Course</th>
+              <th scope="col" class="p-2">Credit Hours</th>
+              <th scope="col" class="p-2">Grade (A-F)</th>
+            </tr>
+          </thead>
+          <tbody id="courses">
+            <tr>
+              <td><input type="text" placeholder="e.g. Mathematics" class="p-2 bg-gray-800 rounded w-full border border-gray-700 focus:outline-none focus:ring focus:ring-yellow-300"></td>
+              <td><input type="number" value="3" min="1" class="p-2 bg-gray-800 rounded w-full border border-gray-700 focus:outline-none focus:ring focus:ring-yellow-300"></td>
+              <td>
+                <select class="p-2 bg-gray-800 rounded w-full border border-gray-700 focus:outline-none focus:ring focus:ring-yellow-300">
+                  <option>A</option><option>B</option><option>C</option><option>D</option><option>F</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="flex flex-col sm:flex-row justify-center gap-4 mt-6">
+        <button id="add-row-btn" type="button" class="px-6 py-3 bg-yellow-400 text-black font-bold rounded-lg transition-transform transform hover:scale-105">+ Add Course</button>
+        <button id="calc-gpa-btn" type="button" class="px-6 py-3 bg-green-400 text-black font-bold rounded-lg transition-transform transform hover:scale-105">Calculate GPA</button>
+      </div>
+
+      <div id="gpaResult" role="status" aria-live="polite" class="text-center text-3xl font-bold text-green-300 mt-6"></div>
+      
+      <div id="about" class="pt-10">
+        <h3 class="text-xl font-bold text-yellow-300 mb-2">About this calculator</h3>
+        <p class="text-gray-400">This tool helps students easily calculate their grade point average by entering their courses, credit hours, and grades. The calculation is done instantly in your browser without sending any data to a server.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-4 text-center text-sm text-white/60 mt-auto">© 2025 Multi-Calculator Hub</footer>
+
+  <!-- Scripts -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const coursesTableBody = document.getElementById('courses');
+      const addRowButton = document.getElementById('add-row-btn');
+      const calcGpaButton = document.getElementById('calc-gpa-btn');
+      const gpaResultDiv = document.getElementById('gpaResult');
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      
+      const gradeMap = { A: 4, B: 3, C: 2, D: 1, F: 0 };
+
+      const createRow = () => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td><input type="text" placeholder="e.g. Mathematics" class="p-2 bg-gray-800 rounded w-full border border-gray-700 focus:outline-none focus:ring focus:ring-yellow-300"></td>
+          <td><input type="number" value="3" min="1" class="p-2 bg-gray-800 rounded w-full border border-gray-700 focus:outline-none focus:ring focus:ring-yellow-300"></td>
+          <td>
+            <select class="p-2 bg-gray-800 rounded w-full border border-gray-700 focus:outline-none focus:ring focus:ring-yellow-300">
+              <option>A</option><option>B</option><option>C</option><option>D</option><option>F</option>
+            </select>
+          </td>
+        `;
+        return row;
+      };
+
+      const addRow = () => {
+        coursesTableBody.appendChild(createRow());
+      };
+
+      const calcGPA = () => {
+        const rows = coursesTableBody.querySelectorAll('tr');
+        let totalPoints = 0, totalCredits = 0;
+
+        rows.forEach(r => {
+          const creditInput = r.children[1].querySelector('input');
+          const gradeSelect = r.children[2].querySelector('select');
+          
+          if (!creditInput || !gradeSelect) return;
+
+          const credit = parseFloat(creditInput.value);
+          const grade = gradeSelect.value;
+          
+          if (!isNaN(credit) && credit > 0) {
+            totalPoints += gradeMap[grade] * credit;
+            totalCredits += credit;
+          }
+        });
+
+        const gpa = (totalCredits > 0) ? (totalPoints / totalCredits).toFixed(2) : "0.00";
+        gpaResultDiv.innerText = `Your GPA: ${gpa}`;
+      };
+
+      const toggleMobileMenu = () => {
+        mobileMenu.classList.toggle('hidden');
+      };
+
+      addRowButton.addEventListener('click', addRow);
+      calcGpaButton.addEventListener('click', calcGPA);
+      mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+    });
+  </script>
+</body>
+</html>

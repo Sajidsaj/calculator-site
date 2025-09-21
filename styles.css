@@ -1,0 +1,22 @@
+body {
+  font-family: 'Poppins', sans-serif;
+}
+/* Custom scrollbar for better UI */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+::-webkit-scrollbar-thumb {
+  background: #fbcfe8;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #f472b6;
+}
+/* Focus outline for accessibility */
+.focus-ring:focus {
+  outline: 2px solid #a78bfa;
+  outline-offset: 2px;
+}

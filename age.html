@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Age Calculator | Free Online Tool</title>
+  <meta name="description" content="Calculate your exact age in years, months, and days with our free online Age Calculator. Quick, accurate and easy to use.">
+  <meta name="keywords" content="age calculator, online age tool, date of birth calculator, age in years months days, birthday calculator">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    .result-box {
+      min-height: 100px;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-purple-800 via-pink-700 to-red-500 text-white min-h-screen flex flex-col antialiased">
+
+  <!-- Header -->
+  <header class="bg-white/10 backdrop-blur-md shadow-xl p-4 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <h1 class="text-xl md:text-3xl font-bold text-yellow-300 drop-shadow-md">✨ Age Calculator</h1>
+      <nav class="space-x-4 text-sm md:text-base hidden sm:block">
+        <a href="index.html" class="hover:text-yellow-300 transition-colors">🏠 Home</a>
+        <a href="currency.html" class="hover:text-yellow-300 transition-colors">Currency</a>
+        <a href="percentage.html" class="hover:text-yellow-300 transition-colors">Percentage</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Section -->
+  <main class="flex-1 flex items-center justify-center p-4">
+    <div class="bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl border-2 border-white/20 p-8 max-w-lg w-full transform transition-all duration-300 hover:scale-[1.02]">
+      <h2 class="text-2xl md:text-3xl font-bold mb-6 text-center text-yellow-300">Find Your Exact Age</h2>
+      
+      <div class="mb-4">
+        <label for="dob" class="block mb-2 text-white/80 font-semibold">Select Your Date of Birth:</label>
+        <input type="date" id="dob" class="w-full p-3 mb-2 rounded-lg bg-gray-900 border border-transparent focus:ring-2 focus:ring-yellow-400 focus:outline-none transition-colors text-white">
+        <p id="dob-error" class="text-red-300 text-sm italic hidden">Please enter your date of birth.</p>
+      </div>
+      
+      <div class="flex space-x-4">
+        <button onclick="calculateAge()" class="flex-1 p-3 bg-yellow-400/80 hover:bg-yellow-400 text-black font-bold rounded-lg transition-colors shadow-lg">Calculate</button>
+        <button onclick="clearResult()" class="p-3 bg-gray-600/50 hover:bg-gray-500 text-white font-bold rounded-lg transition-colors shadow-lg">Clear</button>
+      </div>
+
+      <div class="mt-8 text-center text-lg result-box">
+        <p class="text-white/80">Your Age:</p>
+        <p id="age-result" class="mt-2 text-3xl md:text-4xl font-bold text-green-300 drop-shadow">--</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white/10 p-4 text-center text-sm text-white/60 mt-auto">
+    © 2025 Multi-Calculator Hub | Age Calculator
+  </footer>
+
+  <!-- JS Logic -->
+  <script>
+    function calculateAge() {
+      const dobInput = document.getElementById("dob");
+      const dob = dobInput.value;
+      const ageResult = document.getElementById("age-result");
+      const dobError = document.getElementById("dob-error");
+
+      // Validation
+      if (!dob) {
+        ageResult.innerText = "Please select your date of birth.";
+        ageResult.classList.remove("text-green-300");
+        ageResult.classList.add("text-red-300");
+        dobInput.classList.add("ring-2", "ring-red-400");
+        dobError.classList.remove("hidden");
+        return;
+      }
+
+      ageResult.classList.remove("text-red-300");
+      ageResult.classList.add("text-green-300");
+      dobInput.classList.remove("ring-2", "ring-red-400");
+      dobError.classList.add("hidden");
+
+      const birthDate = new Date(dob);
+      const today = new Date();
+
+      let years = today.getFullYear() - birthDate.getFullYear();
+      let months = today.getMonth() - birthDate.getMonth();
+      let days = today.getDate() - birthDate.getDate();
+
+      if (days < 0) {
+        months--;
+        const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+        days = lastDayOfMonth - birthDate.getDate() + today.getDate();
+      }
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+
+      ageResult.innerText = `${years} Years, ${months} Months, ${days} Days`;
+    }
+
+    function clearResult() {
+      document.getElementById("dob").value = "";
+      document.getElementById("age-result").innerText = "--";
+      document.getElementById("age-result").classList.remove("text-red-300");
+      document.getElementById("age-result").classList.add("text-green-300");
+      document.getElementById("dob").classList.remove("ring-2", "ring-red-400");
+      document.getElementById("dob-error").classList.add("hidden");
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Currency Converter — Live Rates (with fallback)</title>
+  <meta name="description" content="Live currency converter using ExchangeRate-API with smart caching and offline fallback rates. Convert currencies like USD to PKR instantly." />
+  <meta name="keywords" content="currency converter, live rates, USD to PKR, convert currency online, exchange rates" />
+  
+  <!-- SEO: Canonical URL -->
+  <link rel="canonical" href="https://example.com/currency-converter.html" />
+
+  <!-- Open Graph for social media -->
+  <meta property="og:title" content="Live Currency Converter — Accurate Exchange Rates" />
+  <meta property="og:description" content="Convert currencies instantly with live exchange rates. Covers all major currencies including USD to PKR." />
+  <meta property="og:url" content="https://example.com/currency-converter.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://example.com/social-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Schema Markup for Search Engines -->
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "WebPage",
+    "name": "Live Currency Converter",
+    "description": "An online tool for converting currency with live and cached exchange rates.",
+    "url": "https://example.com/currency-converter.html",
+    "potentialAction": {
+      "@type": "ConvertAction",
+      "actionHandler": {
+        "@type": "WebAPI",
+        "description": "Converts currency based on user input."
+      }
+    }
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(6px); }
+    /* Spinner for loading state */
+    .spinner { border: 2px solid rgba(255,255,255,.3); border-top: 2px solid #fff; border-radius: 50%; width: 1.25em; height: 1.25em; animation: spin 1s linear infinite; display: inline-block; vertical-align: middle; margin-right: 0.5em; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    /* Button hover/active effects */
+    button { transition: all 0.2s ease-in-out; }
+    button:hover { opacity: 0.9; }
+    button:active { transform: scale(0.98); }
+    /* Responsive adjustments */
+    @media (max-width: 640px) { .glass { padding: 1rem; } }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-emerald-900 via-indigo-900 to-pink-800 text-white flex flex-col">
+
+  <!-- Header -->
+  <header class="p-4 sticky top-0 z-50 glass">
+    <div class="max-w-4xl mx-auto flex justify-between items-center">
+      <h1 class="text-xl font-bold text-yellow-300">💱 Live Currency Converter</h1>
+      <nav class="text-sm">
+        <a href="index.html" class="mr-3 hover:text-yellow-300">Home</a>
+        <a href="age.html" class="hover:text-yellow-300">Age</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Top Ad slot -->
+  <div id="ad-top" class="max-w-4xl mx-auto my-4">
+    <!-- Ad script placeholder -->
+  </div>
+
+  <!-- Main -->
+  <main class="flex-1 max-w-4xl mx-auto p-4">
+    <section class="glass rounded-2xl p-6 shadow-lg">
+      <h2 class="text-2xl font-semibold text-center text-yellow-300 mb-4">Convert currency instantly (live rates)</h2>
+
+      <div class="space-y-4">
+        <input id="amount" type="number" step="any" placeholder="Amount" class="w-full p-3 rounded bg-gray-900 text-white" value="1">
+
+        <div class="flex gap-3">
+          <select id="from" class="flex-1 p-3 rounded bg-gray-900">
+            <!-- common bases first -->
+            <option value="USD">USD — US Dollar</option>
+            <option value="PKR">PKR — Pakistani Rupee</option>
+            <option value="EUR">EUR — Euro</option>
+            <option value="GBP">GBP — British Pound</option>
+            <option value="INR">INR — Indian Rupee</option>
+            <option value="AUD">AUD — Australian Dollar</option>
+            <option value="CAD">CAD — Canadian Dollar</option>
+          </select>
+
+          <select id="to" class="flex-1 p-3 rounded bg-gray-900">
+            <option value="PKR">PKR — Pakistani Rupee</option>
+            <option value="USD">USD — US Dollar</option>
+            <option value="EUR">EUR — Euro</option>
+            <option value="GBP">GBP — British Pound</option>
+            <option value="INR">INR — Indian Rupee</option>
+            <option value="AUD">AUD — Australian Dollar</option>
+            <option value="CAD">CAD — Canadian Dollar</option>
+          </select>
+        </div>
+
+        <div class="flex gap-3">
+          <button id="convertBtn" class="flex-1 p-3 bg-yellow-400 text-black font-semibold rounded-lg">Convert</button>
+          <button id="swapBtn" class="p-3 bg-white/10 rounded-lg">Swap</button>
+        </div>
+
+        <div id="status" class="text-sm text-white/70"></div>
+
+        <div class="mt-3 bg-gray-900 p-4 rounded text-center">
+          <div class="text-sm text-white/60">Converted amount</div>
+          <div id="result" class="text-3xl font-bold text-green-300 mt-2">--</div>
+          <div id="rateInfo" class="text-xs text-white/60 mt-1"></div>
+        </div>
+
+        <div class="mt-4 text-xs text-white/60">
+          <p>Note: Live rates come from ExchangeRate-API (cached for 12 hours). If API fails, built-in demo rates will be used automatically.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom ad -->
+  <div id="ad-bottom" class="max-w-4xl mx-auto my-6">
+    <!-- Ad script placeholder -->
+  </div>
+
+  <!-- Footer -->
+  <footer class="py-4 text-center text-sm text-white/60">© 2025 Multi-Calculator Hub</footer>
+
+  <!-- Currency script with caching + fallback -->
+  <script>
+  (function(){
+    // ========== CONFIG ==========
+    const API_KEY = 'f53d5c58f776329409efcf5c'; // your provided key
+    const CACHE_HOURS = 12; // cache duration for rates
+    const BASE_URL = 'https://v6.exchangerate-api.com/v6';
+    // built-in demo fallback rates (used if API fails)
+    const DEMO_RATES = {
+      USD: { PKR: 278, EUR: 0.91, GBP: 0.78, INR: 83, AUD: 1.48, CAD: 1.35 },
+      PKR: { USD: 0.0036, EUR: 0.0033, GBP: 0.0028, INR: 0.30, AUD: 0.0053, CAD: 0.0049 },
+      EUR: { USD: 1.10, PKR: 305, GBP: 0.86, INR: 91, AUD: 1.62, CAD: 1.49 },
+      GBP: { USD: 1.28, PKR: 357, EUR: 1.16, INR: 106, AUD: 1.91, CAD: 1.76 },
+      INR: { USD: 0.012, PKR: 3.32, EUR: 0.011, GBP: 0.0094, AUD: 0.018, CAD: 0.016 },
+      AUD: { USD: 0.67, PKR: 187, EUR: 0.62, GBP: 0.52, INR: 55, CAD: 0.91 },
+      CAD: { USD: 0.74, PKR: 206, EUR: 0.67, GBP: 0.57, INR: 60, AUD: 1.10 }
+    };
+
+    // ========== DOM ==========
+    const amountEl = document.getElementById('amount');
+    const fromEl = document.getElementById('from');
+    const toEl = document.getElementById('to');
+    const resultEl = document.getElementById('result');
+    const rateInfoEl = document.getElementById('rateInfo');
+    const statusEl = document.getElementById('status');
+    const convertBtn = document.getElementById('convertBtn');
+    const swapBtn = document.getElementById('swapBtn');
+
+    // ========== HELPER FUNCTIONS ==========
+    function setStatus(txt, warn = false, loading = false) {
+      if (loading) {
+        statusEl.innerHTML = `<span class="spinner"></span> ${txt}`;
+      } else {
+        statusEl.innerText = txt || '';
+      }
+      statusEl.style.color = warn ? '#F97316' : '#A3E635';
+    }
+
+    function cacheKey(base){ return 'rates_' + base; }
+    function nowTs(){ return Date.now(); }
+
+    function saveRatesToCache(base, data){
+      const payload = { fetchedAt: nowTs(), data };
+      try { localStorage.setItem(cacheKey(base), JSON.stringify(payload)); } catch(e){}
+    }
+
+    function loadRatesFromCache(base){
+      try {
+        const raw = localStorage.getItem(cacheKey(base));
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (!parsed.fetchedAt || !parsed.data) return null;
+        const ageMs = nowTs() - parsed.fetchedAt;
+        if (ageMs > CACHE_HOURS * 3600 * 1000) {
+          localStorage.removeItem(cacheKey(base)); // Expired, remove it
+          return null;
+        }
+        return parsed.data;
+      } catch(e){
+        console.error("Cache load error:", e);
+        return null;
+      }
+    }
+
+    // ========== CORE LOGIC ==========
+    async function getRates(base){
+      const cached = loadRatesFromCache(base);
+      if (cached) {
+        setStatus('Using cached live rates (saved).');
+        return { success: true, rates: cached, fromCache: true };
+      }
+
+      setStatus('Fetching live rates...', false, true);
+      const url = `${BASE_URL}/${API_KEY}/latest/${base}`;
+      try {
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) throw new Error('Network response not ok ' + res.status);
+        const json = await res.json();
+        if (json.result !== 'success') throw new Error('API error: ' + (json['error-type'] || 'unknown'));
+        const rates = json.conversion_rates || null;
+        if (!rates) throw new Error('No conversion_rates in API response');
+        saveRatesToCache(base, rates);
+        setStatus('Live rates loaded (cached for ' + CACHE_HOURS + 'h).');
+        return { success: true, rates, fromCache: false };
+      } catch (err) {
+        console.warn('Live rates fetch failed:', err);
+        setStatus('Live rates unavailable — using fallback rates.', true);
+        if (DEMO_RATES[base]) return { success: false, rates: DEMO_RATES[base], fallback: true };
+        return { success: false, rates: null, fallback: true };
+      }
+    }
+
+    function convertWithRates(amount, from, to, rates){
+      if (!rates || !rates[to]) {
+        throw new Error('Rate not available for ' + from + '->' + to);
+      }
+      return amount * rates[to];
+    }
+
+    async function performConversion(){
+      const amount = parseFloat(amountEl.value);
+      const from = fromEl.value;
+      const to = toEl.value;
+
+      if (isNaN(amount) || amount <= 0) {
+        resultEl.innerText = 'Enter valid amount';
+        rateInfoEl.innerText = '';
+        return;
+      }
+      
+      convertBtn.disabled = true;
+      convertBtn.innerText = 'Converting...';
+
+      try {
+        const r = await getRates(from);
+        if (!r.rates) {
+          resultEl.innerText = 'Rates unavailable';
+          rateInfoEl.innerText = '';
+          setStatus('Conversion failed', true);
+          return;
+        }
+
+        const convertedAmount = convertWithRates(amount, from, to, r.rates);
+        resultEl.innerText = convertedAmount.toFixed(4);
+        
+        const rate = r.rates[to];
+        rateInfoEl.innerText = `1 ${from} = ${rate.toFixed(4)} ${to}`;
+
+      } catch (err) {
+        resultEl.innerText = 'Error';
+        rateInfoEl.innerText = 'Could not convert';
+        setStatus('An error occurred: ' + err.message, true);
+      } finally {
+        convertBtn.disabled = false;
+        convertBtn.innerText = 'Convert';
+      }
+    }
+
+    // ========== EVENT LISTENERS ==========
+    function handleSwap(){
+      [fromEl.value, toEl.value] = [toEl.value, fromEl.value];
+      performConversion();
+    }
+    
+    // Automatic conversion on input/select change
+    amountEl.addEventListener('input', performConversion);
+    fromEl.addEventListener('change', performConversion);
+    toEl.addEventListener('change', performConversion);
+    swapBtn.addEventListener('click', handleSwap);
+    convertBtn.addEventListener('click', performConversion);
+    
+    // Initial conversion on page load
+    window.addEventListener('load', () => {
+      // Set initial selections for demo purpose
+      fromEl.value = 'USD';
+      toEl.value = 'PKR';
+      performConversion();
+    });
+
+  })();
+  </script>
+
+</body>
+</html>

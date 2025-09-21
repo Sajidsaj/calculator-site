@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All-in-One Online Calculators | Free Tools for Everyone</title>
+  <meta name="description" content="Use our free online calculators for a wide range of needs: Basic, Scientific, BMI, Loan, Age, Currency, Percentage, GPA. Perfect for students, fitness enthusiasts, and business professionals.">
+  <meta name="keywords" content="online calculator, scientific calculator, BMI calculator, loan calculator, age calculator, currency converter, percentage calculator, GPA calculator, multi-purpose, free tools">
+  <meta name="author" content="Your Name/Website Name">
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts for better typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- External CSS file -->
+  <link rel="stylesheet" href="styles.css">
+
+</head>
+<body class="bg-gradient-to-br from-indigo-900 via-purple-800 to-pink-700 text-white min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-white/10 backdrop-blur-md shadow-lg p-4 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-4">
+      <a href="index.html" class="flex items-center space-x-2 text-pink-300 drop-shadow focus-ring" aria-label="Home">
+        <span class="text-3xl font-bold">✨ Multi-Calculator Hub</span>
+      </a>
+      <nav class="flex flex-wrap items-center justify-center gap-3 md:gap-6 text-sm md:text-base">
+        <a href="index.html" class="hover:text-yellow-300 transition-colors focus-ring">🏠 Home</a>
+        <a href="#basic" class="hover:text-yellow-300 transition-colors focus-ring">Basic</a>
+        <a href="#scientific" class="hover:text-yellow-300 transition-colors focus-ring">Scientific</a>
+        <a href="#bmi" class="hover:text-yellow-300 transition-colors focus-ring">BMI</a>
+        <a href="#loan" class="hover:text-yellow-300 transition-colors focus-ring">Loan</a>
+        <a href="age.html" class="hover:text-yellow-300 transition-colors focus-ring">🎂 Age</a>
+        <a href="currency.html" class="hover:text-yellow-300 transition-colors focus-ring">💱 Currency</a>
+        <a href="percentage.html" class="hover:text-yellow-300 transition-colors focus-ring">📊 Percentage</a>
+        <a href="gpa.html" class="hover:text-yellow-300 transition-colors focus-ring">🎓 GPA</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ✅ Adsterra Ads - Untouched -->
+  <div class="max-w-7xl mx-auto my-4 p-2 text-center" aria-label="Adsterra advertisement">
+    <script async="async" data-cfasync="false" src="//pl27596291.revenuecpmgate.com/c1bde0aa4b42a3b742292e9dfe490b11/invoke.js"></script>
+    <div id="container-c1bde0aa4b42a3b742292e9dfe490b11"></div>
+  </div>
+
+  <main class="flex-1 max-w-7xl mx-auto grid md:grid-cols-3 gap-6 p-4">
+
+    <!-- Popular Calculators Section -->
+    <section class="md:col-span-3 bg-white/10 rounded-2xl p-6 shadow-lg mb-8" aria-labelledby="popular-calculators-heading">
+      <h2 id="popular-calculators-heading" class="text-3xl font-bold mb-6 text-yellow-300">🌟 Popular Calculators</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+
+        <!-- Age Calculator -->
+        <a href="age.html" class="bg-gradient-to-br from-pink-500 to-purple-600 rounded-2xl p-6 text-center shadow-lg hover:shadow-pink-400/50 transform hover:scale-105 transition-all duration-300 focus-ring" aria-label="Navigate to Age Calculator">
+          <h3 class="text-xl font-semibold mb-2">🎂 Age Calculator</h3>
+          <p class="text-sm text-white/80">Find your exact age in years, months & days.</p>
+        </a>
+
+        <!-- Currency Converter -->
+        <a href="currency.html" class="bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl p-6 text-center shadow-lg hover:shadow-green-400/50 transform hover:scale-105 transition-all duration-300 focus-ring" aria-label="Navigate to Currency Converter">
+          <h3 class="text-xl font-semibold mb-2">💱 Currency Converter</h3>
+          <p class="text-sm text-white/80">Convert money in real-time with live rates.</p>
+        </a>
+
+        <!-- Percentage Calculator -->
+        <a href="percentage.html" class="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl p-6 text-center shadow-lg hover:shadow-blue-400/50 transform hover:scale-105 transition-all duration-300 focus-ring" aria-label="Navigate to Percentage Calculator">
+          <h3 class="text-xl font-semibold mb-2">📊 Percentage Calculator</h3>
+          <p class="text-sm text-white/80">Quickly calculate percentages with ease.</p>
+        </a>
+
+        <!-- GPA Calculator -->
+        <a href="gpa.html" class="bg-gradient-to-br from-yellow-500 to-orange-600 rounded-2xl p-6 text-center shadow-lg hover:shadow-yellow-400/50 transform hover:scale-105 transition-all duration-300 focus-ring" aria-label="Navigate to GPA Calculator">
+          <h3 class="text-xl font-semibold mb-2">🎓 GPA Calculator</h3>
+          <p class="text-sm text-white/80">Calculate your GPA for school or college.</p>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Main Calculators Section -->
+    <section class="md:col-span-2 space-y-12">
+
+      <!-- Basic Calculator -->
+      <div id="basic" class="bg-white/10 rounded-2xl p-6 shadow-lg hover:shadow-yellow-400/40 transition-shadow">
+        <h2 class="text-2xl font-bold mb-4 text-yellow-300">Basic Calculator</h2>
+        <input id="basic-input" class="w-full p-3 rounded bg-gray-900 text-2xl text-right focus:ring-2 focus:ring-yellow-400 focus-ring" type="text" placeholder="Enter expression..." aria-label="Basic calculator input" readonly>
+        <div class="mt-4 grid grid-cols-4 gap-3">
+          <button class="p-3 bg-red-500/80 hover:bg-red-500 rounded transition-colors focus-ring" onclick="basicClear()" aria-label="Clear">C</button>
+          <button class="p-3 bg-orange-500/80 hover:bg-orange-500 rounded transition-colors focus-ring" onclick="basicBack()" aria-label="Backspace">⌫</button>
+          <button class="p-3 bg-indigo-500/80 hover:bg-indigo-500 rounded transition-colors focus-ring" onclick="basicAppend('%')" aria-label="Percent">%</button>
+          <button class="p-3 bg-indigo-500/80 hover:bg-indigo-500 rounded transition-colors focus-ring" onclick="basicAppend('/')" aria-label="Divide">÷</button>
+          <button class="p-3 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="basicAppend('7')">7</button>
+          <button class="p-3 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="basicAppend('8')">8</button>
+          <button class="p-3 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="basicAppend('9')">9</button>
+          <button class="p-3 bg-indigo-500/80 hover:bg-indigo-500 rounded transition-colors focus-ring" onclick="basicAppend('*')" aria-label="Multiply">×</button>
+          <button class="p-3 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="basicAppend('4')">4</button>
+          <button class="p-3 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="basicAppend('5')">5</button>
+          <button class="p-3 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="basicAppend('6')">6</button>
+          <button class="p-3 bg-indigo-500/80 hover:bg-indigo-500 rounded transition-colors focus-ring" onclick="basicAppend('-')" aria-label="Subtract">−</button>
+          <button class="p-3 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="basicAppend('1')">1</button>
+          <button class="p-3 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="basicAppend('2')">2</button>
+          <button class="p-3 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="basicAppend('3')">3</button>
+          <button class="p-3 bg-indigo-500/80 hover:bg-indigo-500 rounded transition-colors focus-ring" onclick="basicAppend('+')" aria-label="Add">+</button>
+          <button class="col-span-2 p-3 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="basicAppend('0')">0</button>
+          <button class="p-3 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="basicAppend('.')">.</button>
+          <button class="p-3 bg-green-500/80 hover:bg-green-500 rounded transition-colors focus-ring" onclick="basicCalculate()" aria-label="Calculate">=</button>
+        </div>
+        <div class="mt-3 text-lg">Result: <span id="basic-output" class="text-green-300 font-semibold">0</span></div>
+      </div>
+
+      <!-- Scientific Calculator -->
+      <div id="scientific" class="bg-white/10 rounded-2xl p-6 shadow-lg hover:shadow-pink-400/40 transition-shadow">
+        <h2 class="text-2xl font-bold mb-4 text-pink-300">Scientific Calculator</h2>
+        <input id="sci-input" class="w-full p-3 rounded bg-gray-900 text-2xl text-right focus:ring-2 focus:ring-pink-400 focus-ring" type="text" placeholder="Enter expression..." aria-label="Scientific calculator input" readonly>
+        <div class="grid grid-cols-5 gap-2 mt-4">
+          <button class="p-2 bg-purple-500/80 hover:bg-purple-500 rounded transition-colors focus-ring" onclick="sciAppend('sin(')">sin</button>
+          <button class="p-2 bg-purple-500/80 hover:bg-purple-500 rounded transition-colors focus-ring" onclick="sciAppend('cos(')">cos</button>
+          <button class="p-2 bg-purple-500/80 hover:bg-purple-500 rounded transition-colors focus-ring" onclick="sciAppend('tan(')">tan</button>
+          <button class="p-2 bg-purple-500/80 hover:bg-purple-500 rounded transition-colors focus-ring" onclick="sciAppend('log(')">log</button>
+          <button class="p-2 bg-purple-500/80 hover:bg-purple-500 rounded transition-colors focus-ring" onclick="sciAppend('sqrt(')">√</button>
+          <button class="p-2 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="sciAppend('Math.PI')">π</button>
+          <button class="p-2 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="sciAppend('Math.E')">e</button>
+          <button class="p-2 bg-indigo-500/80 hover:bg-indigo-500 rounded transition-colors focus-ring" onclick="sciAppend('**')">^</button>
+          <button class="p-2 bg-red-500/80 hover:bg-red-500 rounded transition-colors focus-ring" onclick="sciClear()">C</button>
+          <button class="p-2 bg-orange-500/80 hover:bg-orange-500 rounded transition-colors focus-ring" onclick="sciBack()">⌫</button>
+          <button class="p-2 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="sciAppend('(')">(</button>
+          <button class="p-2 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="sciAppend(')')">)</button>
+          <button class="p-2 bg-indigo-500/80 hover:bg-indigo-500 rounded transition-colors focus-ring" onclick="sciAppend('/')">÷</button>
+          <button class="p-2 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="sciAppend('7')">7</button>
+          <button class="p-2 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="sciAppend('8')">8</button>
+          <button class="p-2 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="sciAppend('9')">9</button>
+          <button class="p-2 bg-indigo-500/80 hover:bg-indigo-500 rounded transition-colors focus-ring" onclick="sciAppend('*')">×</button>
+          <button class="p-2 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="sciAppend('4')">4</button>
+          <button class="p-2 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="sciAppend('5')">5</button>
+          <button class="p-2 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="sciAppend('6')">6</button>
+          <button class="p-2 bg-indigo-500/80 hover:bg-indigo-500 rounded transition-colors focus-ring" onclick="sciAppend('-')">−</button>
+          <button class="p-2 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="sciAppend('1')">1</button>
+          <button class="p-2 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="sciAppend('2')">2</button>
+          <button class="p-2 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="sciAppend('3')">3</button>
+          <button class="p-2 bg-indigo-500/80 hover:bg-indigo-500 rounded transition-colors focus-ring" onclick="sciAppend('+')">+</button>
+          <button class="col-span-2 p-2 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="sciAppend('0')">0</button>
+          <button class="p-2 bg-gray-700 hover:bg-gray-600 rounded transition-colors focus-ring" onclick="sciAppend('.')">.</button>
+          <button class="p-2 bg-green-500/80 hover:bg-green-500 rounded transition-colors focus-ring" onclick="sciCalculate()">=</button>
+        </div>
+        <div class="mt-3 text-lg">Result: <span id="sci-output" class="text-green-300 font-semibold">0</span></div>
+      </div>
+    </section>
+
+    <!-- Sidebar / Additional Calculators -->
+    <aside class="md:col-span-1 space-y-6">
+      <!-- BMI Calculator -->
+      <div id="bmi" class="bg-white/10 rounded-2xl p-6 shadow-lg hover:shadow-green-400/40 transition-shadow">
+        <h2 class="text-2xl font-bold mb-4 text-green-300">BMI Calculator</h2>
+        <div class="space-y-4">
+          <div>
+            <label for="bmi-weight" class="block mb-1">Weight (kg):</label>
+            <input id="bmi-weight" type="number" class="w-full p-2 rounded bg-gray-900 focus:ring-2 focus:ring-green-400 focus-ring" placeholder="e.g., 70" aria-label="Enter your weight in kilograms">
+          </div>
+          <div>
+            <label for="bmi-height" class="block mb-1">Height (m):</label>
+            <input id="bmi-height" type="number" class="w-full p-2 rounded bg-gray-900 focus:ring-2 focus:ring-green-400 focus-ring" placeholder="e.g., 1.75" aria-label="Enter your height in meters">
+          </div>
+          <button onclick="calculateBMI()" class="w-full p-3 bg-green-500/80 hover:bg-green-500 rounded transition-colors font-semibold focus-ring" aria-label="Calculate BMI">Calculate</button>
+          <div class="mt-3 text-lg">Your BMI: <span id="bmi-output" class="text-green-300 font-semibold">0</span></div>
+        </div>
+      </div>
+
+      <!-- Loan Calculator -->
+      <div id="loan" class="bg-white/10 rounded-2xl p-6 shadow-lg hover:shadow-blue-400/40 transition-shadow">
+        <h2 class="text-2xl font-bold mb-4 text-blue-300">Loan Calculator</h2>
+        <div class="space-y-4">
+          <div>
+            <label for="loan-amount" class="block mb-1">Loan Amount:</label>
+            <input id="loan-amount" type="number" class="w-full p-2 rounded bg-gray-900 focus:ring-2 focus:ring-blue-400 focus-ring" placeholder="e.g., 10000" aria-label="Enter loan amount">
+          </div>
+          <div>
+            <label for="loan-rate" class="block mb-1">Interest Rate (%):</label>
+            <input id="loan-rate" type="number" class="w-full p-2 rounded bg-gray-900 focus:ring-2 focus:ring-blue-400 focus-ring" placeholder="e.g., 5" aria-label="Enter annual interest rate">
+          </div>
+          <div>
+            <label for="loan-years" class="block mb-1">Loan Term (Years):</label>
+            <input id="loan-years" type="number" class="w-full p-2 rounded bg-gray-900 focus:ring-2 focus:ring-blue-400 focus-ring" placeholder="e.g., 5" aria-label="Enter loan term in years">
+          </div>
+          <button onclick="calculateLoan()" class="w-full p-3 bg-blue-500/80 hover:bg-blue-500 rounded transition-colors font-semibold focus-ring" aria-label="Calculate Loan">Calculate</button>
+          <div class="mt-3 text-lg">Monthly Payment: <span id="loan-output" class="text-blue-300 font-semibold">0</span></div>
+        </div>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white/10 backdrop-blur-md p-4 text-center mt-auto">
+    <p class="text-white/70">&copy; 2025 Multi-Calculator Hub. All rights reserved. | <a href="#" class="hover:underline">Privacy Policy</a></p>
+  </footer>
+
+  <!-- External JS file -->
+  <script src="script.js"></script>
+
+</body>
+</html>
